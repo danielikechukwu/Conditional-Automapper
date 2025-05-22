@@ -36,5 +36,35 @@ namespace ConditionalAutomapperDemo.Controllers
             return Ok(customerDTOs);
         }
 
+        [HttpGet("GetCustomerById/{id}")]
+        public async Task<ActionResult<CustomerDTO>> GetCustomerById([FromRoute] int id)
+        {
+            var customer = _context.Customers
+                .Include (c => c.Orders)
+                .ThenInclude (o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .FirstOrDefaultAsync();
+
+            var customerDTO = _mapper.Map<CustomerDTO>(customer);
+
+            return Ok(customerDTO);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CustomerDTO>> CreateCustomer([FromBody] CustomerDTO customerDTO)
+        {
+            var customer = new Customer
+            {
+                Name = customerDTO.Name ?? "New Customer",
+                IsActive = true // default to active
+            };
+
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+
+            var createdDTO = _mapper.Map<CustomerDTO>(customer);
+            return Ok(createdDTO);
+        }
+
     }
 }
