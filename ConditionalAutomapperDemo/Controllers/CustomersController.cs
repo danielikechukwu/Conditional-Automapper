@@ -39,7 +39,7 @@ namespace ConditionalAutomapperDemo.Controllers
         [HttpGet("GetCustomerById/{id}")]
         public async Task<ActionResult<CustomerDTO>> GetCustomerById([FromRoute] int id)
         {
-            var customer = _context.Customers
+            var customer = await _context.Customers
                 .Include (c => c.Orders)
                 .ThenInclude (o => o.OrderItems)
                 .ThenInclude(oi => oi.Product)
