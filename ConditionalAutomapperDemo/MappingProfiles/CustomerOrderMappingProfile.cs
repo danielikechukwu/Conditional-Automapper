@@ -38,6 +38,7 @@ namespace ConditionalAutomapperDemo.MappingProfiles
 
                     // If not available, dest.ProductName remains null
                     opt.MapFrom<string>(src => src.Product.Name);
+                    //opt.Ignore();
                 })
                 .ForMember(dest => dest.SubTotal, opt =>
                 {
