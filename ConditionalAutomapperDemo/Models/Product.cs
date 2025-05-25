@@ -6,6 +6,7 @@ namespace ConditionalAutomapperDemo.Models
     {
         public int Id { get; set; }
 
+        [NoMap]
         public string Name { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
