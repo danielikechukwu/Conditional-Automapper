@@ -27,8 +27,16 @@ namespace ConditionalAutomapperDemo.MappingProfiles
                 });
 
             // 2) Product -> ProductDto
+            //CreateMap<Product, ProductDTO>();
+
+            // In the case were we want to ignore more than one property
+            //CreateMap<Product, ProductDTO>()
+            //    .IgnoreNoMap();
+
+            // In the case were we want to ignore any property with null value 
+            // from overriding the database.
             CreateMap<Product, ProductDTO>()
-                .IgnoreNoMap();
+                .IgnoreAllNull();
 
             // 3) OrderItem -> OrderItemDto
             CreateMap<OrderItem, OrderItemDTO>()

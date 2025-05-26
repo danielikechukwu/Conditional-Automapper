@@ -31,5 +31,21 @@ namespace ConditionalAutomapperDemo.Controllers
 
         }
 
+        [HttpPut("{Id}")]
+        public async Task<ActionResult<Product>> UpdateProduct(int Id, ProductDTO productDTO)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == Id);
+
+            if(product == null)
+            {
+                return NotFound("Product not found");
+            }
+
+            // AutoMapper will ignore null values in productDTO during mapping
+            _mapper.Map(productDTO, product);
+
+            return Ok(product);
+
+        }
     }
 }
