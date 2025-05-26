@@ -27,7 +27,8 @@ namespace ConditionalAutomapperDemo.MappingProfiles
                 });
 
             // 2) Product -> ProductDto
-            CreateMap<Product, ProductDTO>();
+            CreateMap<Product, ProductDTO>()
+                .IgnoreNoMap();
 
             // 3) OrderItem -> OrderItemDto
             CreateMap<OrderItem, OrderItemDTO>()
@@ -37,7 +38,7 @@ namespace ConditionalAutomapperDemo.MappingProfiles
                     opt.PreCondition(src => src.Product.IsAvailable);
 
                     // If not available, dest.ProductName remains null
-                    //opt.MapFrom<string>(src => src.Product.Name);
+                    opt.MapFrom<string>(src => src.Product.Name);
                     //opt.Ignore();
                 })
                 .ForMember(dest => dest.SubTotal, opt =>
