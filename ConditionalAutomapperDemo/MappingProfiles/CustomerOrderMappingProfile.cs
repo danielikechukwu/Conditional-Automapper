@@ -87,7 +87,7 @@ namespace ConditionalAutomapperDemo.MappingProfiles
 
             // Configure mapping from Employee to EmployeeDTO
             // MemberList.None: Check neither source nor destination members, skipping validation
-            CreateMap<Employee, EmployeeDTO>(MemberList.None);
+            CreateMap<Employee, EmployeeDTO>(MemberList.Source);
         }
     }
 }
